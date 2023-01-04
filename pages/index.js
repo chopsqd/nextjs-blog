@@ -1,11 +1,7 @@
 import {PostCard, Categories, PostWidget} from '../components'
+import {getPosts} from "../services";
 
-const posts = [
-    {title: 'React Testing', excerpt: 'Learn react testing'},
-    {title: 'React with Tailwind', excerpt: 'Learn react with tailwind'}
-]
-
-const Home = () => {
+const Home = ({posts}) => {
     return (
         <div className="container mx-auto px-10 mb-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -28,3 +24,11 @@ const Home = () => {
 }
 
 export default Home
+
+export async function getStaticProps() {
+    const posts = (await getPosts()) || []
+
+    return {
+        props: { posts }
+    }
+}
